@@ -1,8 +1,16 @@
 require('dotenv').config();
+const express = require('express');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const token = process.env.token;
+
+const app = express();
+app.get('/', (req, res) => res.status(200).send('OK'));
+app.get('/health', (req, res) => res.status(200).send('OK'));
+app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
+	console.log(`Health check server listening on port ${process.env.PORT || 3000}`);
+});
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
