@@ -97,22 +97,6 @@ client.on('warn', warning => {
 	console.warn('[DISCORD WARNING]', warning);
 });
 
-
 console.log('[TEST] Checking Discord API connectivity...');
 
-fetch('https://discord.com/api/v10/gateway', {
-	signal: AbortSignal.timeout(10000),
-})
-	.then(async response => {
-		console.log('[TEST] Discord API status:', response.status);
-		console.log('[TEST] Gateway response:', await response.json());
-	})
-	.catch(error => {
-		console.error('[TEST] Discord API connection failed:', error);
-	});
-
-console.log('[TEST] Attempting Discord login...');
-
-client.login(token)
-	.then(() => console.log('[LOGIN] Login promise resolved'))
-	.catch(error => console.error('[LOGIN ERROR]', error));
+client.login(token);
