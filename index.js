@@ -49,6 +49,7 @@ for (const file of eventFiles) {
 
 // Adding some debug stuff
 client.on('debug', info => {
+	if (info.toLowerCase().includes('token')) return;
 	console.log('[DISCORD DEBUG]', info);
 });
 
@@ -66,6 +67,26 @@ client.on('shardDisconnect', (event, id) => {
 
 client.on('shardReconnecting', id => {
 	console.log(`[SHARD ${id}] Reconnecting...`);
+});
+
+client.on('shardReady', id => {
+	console.log(`[GATEWAY] Shard ${id} is READY`);
+});
+
+client.on('shardReconnecting', id => {
+	console.log(`[GATEWAY] Shard ${id} reconnecting`);
+});
+
+client.on('shardDisconnect', (event, id) => {
+	console.log(`[GATEWAY] Shard ${id} disconnected`, event.code);
+});
+
+client.on('shardError', (error, id) => {
+	console.error(`[GATEWAY] Shard ${id} error:`, error);
+});
+
+client.on('warn', warning => {
+	console.warn('[DISCORD WARNING]', warning);
 });
 
 client.login(token);
