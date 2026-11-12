@@ -12,6 +12,14 @@ app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
 	console.log(`Health check server listening on port ${process.env.PORT || 3000}`);
 });
 
+
+process.on('unhandledRejection', error => {
+	console.error('[UNHANDLED REJECTION]', error);
+});
+
+process.on('uncaughtException', error => {
+	console.error('[UNCAUGHT EXCEPTION]', error);
+});
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.cooldowns = new Collection();
@@ -89,4 +97,6 @@ client.on('warn', warning => {
 	console.warn('[DISCORD WARNING]', warning);
 });
 
-client.login(token);
+client.login(token)
+	.then(() => console.log('[LOGIN] Login promise resolved'))
+	.catch(error => console.error('[LOGIN ERROR]', error));
