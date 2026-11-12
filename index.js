@@ -47,4 +47,25 @@ for (const file of eventFiles) {
 	}
 }
 
+// Adding some debug stuff
+client.on('debug', info => {
+	console.log('[DISCORD DEBUG]', info);
+});
+
+client.on('error', error => {
+	console.error('[DISCORD ERROR]', error);
+});
+
+client.on('shardError', error => {
+	console.error('[SHARD ERROR]', error);
+});
+
+client.on('shardDisconnect', (event, id) => {
+	console.log(`[SHARD ${id}] Disconnected:`, event);
+});
+
+client.on('shardReconnecting', id => {
+	console.log(`[SHARD ${id}] Reconnecting...`);
+});
+
 client.login(token);
